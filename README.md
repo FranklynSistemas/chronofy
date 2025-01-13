@@ -15,8 +15,8 @@ chronofy
 │   │   ├── fetcher.go       # Data fetching logic.
 │   │   └── normalizer.go    # Data normalization logic.
 │   └── models/              # Data structures.
-│   |   └── data.go          # Definitions for normalized data structures.
-|   |___handlers             # API handlers
+│       └── data.go          # Definitions for normalized data structures.
+│   └── handlers/            # API handlers.
 ├── pkg/                     # Shared code (reusable outside the app).
 │   └── utils/               # Utility functions.
 │       └── logger.go        # Logging utility.
