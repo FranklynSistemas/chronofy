@@ -1,0 +1,6 @@
+gcp:
+  api_key: "your_gcp_api_key"
+database:
+  connection_string: "your_db_connection_string"
+sentry:
+  api_key: "your_sentry_api_key"
