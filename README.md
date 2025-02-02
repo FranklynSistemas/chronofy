@@ -3,6 +3,7 @@ A project to help engineers find the root cause of an error by looking through a
 
 
 ### Project structure
+```
 chronofy
 ├── cmd/                     # Main application entry point.
 │   └── main.go              # Starts the application.
@@ -25,7 +26,7 @@ chronofy
 ├── tests/                   # Test files.
 │   └── fetcher_test.go      # Unit tests for fetcher logic.
 └── go.mod                   # Go module file.
-
+```
 
 ### Run the project
 
