@@ -31,3 +31,10 @@ chronofy
 
 - To run it on production `ENV=production go run cmd/main.go`
 - To run it locally `go run cmd/main.go`
+- To run test `go test -v ./tests`
+
+### Run database
+
+- Inside `database/` run `docker build . -t chronofy-db`
+- Then run the image by running `docker run -p 54321:5432 chronofy-db` 
+    - 5432 is the port postgres would use inside the image and 54321 is the port that we can using from our local

@@ -1,6 +1,17 @@
 package models
 
-import "time"
+import (
+	"encoding/json"
+	"time"
+)
+
+type Event struct {
+	ID         int32           `json:"id"`
+	Name       string          `json:"name"`
+	Payload    json.RawMessage `json:"payload"`
+	ExternalID string          `json:"external_id"`
+	CreatedAt  time.Time       `json:"created_at"`
+}
 
 type Data struct {
 	ID        string

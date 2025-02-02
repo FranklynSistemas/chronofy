@@ -62,7 +62,7 @@ func FetchDataHandler(c *gin.Context) {
 	}
 
 	// Fetch data from selected providers.
-	data, fetchErr := services.FetchDataFromProviders(params, selectedProviders)
+	data, fetchErr := services.FetchDataFromProviders(c, params, selectedProviders)
 	if fetchErr != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": fetchErr.Error()})
 		return

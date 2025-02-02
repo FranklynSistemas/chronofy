@@ -1,14 +1,17 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
 	"time"
 
+	"github.com/FranklynSistemas/chronofy/database"
 	"github.com/FranklynSistemas/chronofy/internal/handlers"
 	"github.com/FranklynSistemas/chronofy/internal/models"
 	providers "github.com/FranklynSistemas/chronofy/internal/providers"
+	"github.com/FranklynSistemas/chronofy/internal/repository"
 	services "github.com/FranklynSistemas/chronofy/internal/services"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -40,6 +43,15 @@ func main() {
 	router := gin.Default()
 	router.SetTrustedProxies([]string{"192.168.1.1"}) // Replace with your trusted proxy IPs
 
+	DATABASE_URL := os.Getenv("DATABASE_URL")
+	fmt.Printf("Database URL: %s\n", DATABASE_URL)
+	repo, err := database.NewPostgresRepository(DATABASE_URL)
+	if err != nil {
+		log.Fatalf("Error creating postgres repository: %v", err)
+	}
+
+	repository.SetRepository(repo)
+
 	// Define the GET endpoint.
 	router.GET("/fetch-data", handlers.FetchDataHandler)
 
@@ -63,8 +75,11 @@ func testLocally() {
 		&providers.SentryProvider{},
 	}
 
+	// Create a context.
+	ctx := context.Background()
+
 	// Fetch data using the fetcher service.
-	data, err := services.FetchDataFromProviders(params, providersList)
+	data, err := services.FetchDataFromProviders(ctx, params, providersList)
 	if err != nil {
 		fmt.Printf("Error fetching data: %v\n", err)
 		return

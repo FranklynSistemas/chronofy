@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"sort"
 	"sync"
 
@@ -8,7 +9,7 @@ import (
 	"github.com/FranklynSistemas/chronofy/internal/providers"
 )
 
-func FetchDataFromProviders(params models.QueryParams, providerList []providers.Provider) ([]models.Data, error) {
+func FetchDataFromProviders(ctx context.Context, params models.QueryParams, providerList []providers.Provider) ([]models.Data, error) {
 	var wg sync.WaitGroup
 	results := make(chan []models.Data, len(providerList)) // Channel to collect results.
 	errors := make(chan error, len(providerList))          // Channel to collect errors.
@@ -20,7 +21,7 @@ func FetchDataFromProviders(params models.QueryParams, providerList []providers.
 			defer wg.Done()
 
 			// Fetch raw data.
-			rawData, err := p.FetchData(params)
+			rawData, err := p.FetchData(ctx, params)
 			if err != nil {
 				errors <- err
 				return

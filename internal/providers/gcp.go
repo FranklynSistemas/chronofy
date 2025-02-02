@@ -1,6 +1,7 @@
 package providers
 
 import (
+	"context"
 	"time"
 
 	"github.com/FranklynSistemas/chronofy/internal/models"
@@ -15,7 +16,7 @@ type GCPLogEntry struct { // Example GCP-specific log structure.
 	LogLevel  string
 }
 
-func (p *GCPLogsProvider) FetchData(params models.QueryParams) ([]interface{}, error) {
+func (p *GCPLogsProvider) FetchData(ctx context.Context, params models.QueryParams) ([]interface{}, error) {
 	// Simulate fetching raw data from GCP logs.
 	rawData := []interface{}{
 		GCPLogEntry{LogID: "1", Message: "GCP log entry", Timestamp: time.Now(), LogLevel: "INFO"},

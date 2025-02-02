@@ -1,6 +1,7 @@
 package providers
 
 import (
+	"context"
 	"time"
 
 	"github.com/FranklynSistemas/chronofy/internal/models"
@@ -15,7 +16,7 @@ type SentryErrorEntry struct { // Example Sentry-specific error structure.
 	Severity  string
 }
 
-func (p *SentryProvider) FetchData(params models.QueryParams) ([]interface{}, error) {
+func (p *SentryProvider) FetchData(ctx context.Context, params models.QueryParams) ([]interface{}, error) {
 	// Simulate fetching raw data from Sentry.
 	rawData := []interface{}{
 		SentryErrorEntry{ErrorID: "3", Message: "Sample error", Timestamp: time.Now(), Severity: "CRITICAL"},
