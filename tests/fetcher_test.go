@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"context"
 	"testing"
 	"time"
 
@@ -17,6 +18,9 @@ type MockData struct {
 	Timestamp time.Time
 }
 
+// TODO: fix the test
+// Look if there is possible connect with gcp logs
+
 func TestFetchDataFromProviders(t *testing.T) {
 	mockProvider := &MockProvider{}
 	providers := []providers.Provider{mockProvider}
@@ -24,8 +28,8 @@ func TestFetchDataFromProviders(t *testing.T) {
 		StartDate: time.Now().Add(-24 * time.Hour),
 		EndDate:   time.Now(),
 	}
-
-	data, err := services.FetchDataFromProviders(params, providers)
+	context := context.Background()
+	data, err := services.FetchDataFromProviders(context, params, providers)
 	if err != nil {
 		t.Fatalf("expected no error, got %v", err)
 	}
@@ -61,7 +65,7 @@ func TestNormalizeData(t *testing.T) {
 	}
 }
 
-func (p *MockProvider) FetchData(params models.QueryParams) ([]interface{}, error) {
+func (p *MockProvider) FetchData(ctx context.Context, params models.QueryParams) ([]interface{}, error) {
 	data := []MockData{
 		{ID: "mock1", Timestamp: time.Now(), Body: map[string]interface{}{"key": "value"}},
 	}
